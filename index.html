@@ -855,4 +855,49 @@
 
         function previousQuestion() {
             if (currentQuestion > 1) {
-                document.getElementById(`question${currentQuestion}`).classList.
+                document.getElementById(`question${currentQuestion}`).classList.remove('active');Add commentMore actions
+                currentQuestion--;
+                document.getElementById(`question${currentQuestion}`).classList.add('active');
+                updateProgressIndicator();
+                updateButtons();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentQuestion === 1;
+            nextBtn.textContent = currentQuestion === totalQuestions ? 'Find My Match!' : 'Next';
+        }
+
+        function startMatching() {
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.getElementById('loadingContainer').style.display = 'block';
+            
+            let progress = 0;
+            
+            const updateInterval = setInterval(() => {
+                // Always randomly select a message
+                const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+                document.getElementById('loadingText').textContent = randomMessage.main;
+                document.getElementById('techText').textContent = randomMessage.tech;
+                
+                progress += Math.random() * 15 + 5;
+                if (progress > 100) progress = 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }, 3000);
+            
+            // Show result after 30 seconds
+            setTimeout(() => {
+                clearInterval(updateInterval);
+                document.getElementById('loadingContainer').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+            }, 30000);
+        }
+
+        // Initialize
+        updateButtons();
+    </script>
+</body>
+</html>
