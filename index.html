@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The One - Find Your Perfect Match</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            text-align: center;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .question-container {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .question-number {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            background: rgba(255, 255, 255, 0.3);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            margin: 0 5px;
+            transition: background 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+        }
+
+        .loading-container {
+            display: none;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .tech-text {
+            font-size: 0.9em;
+            opacity: 0.7;
+            font-style: italic;
+        }
+
+        .result {
+            display: none;
+            font-size: 1.5em;
+            line-height: 1.6;
+        }
+
+        .result-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+        }
+
+        .welcome {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        option {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="welcome" id="welcomeScreen">
+            <h1 class="logo">The One</h1>
+            <p class="tagline">AI-Powered Soulmate Discovery Platform</p>
+            <p style="margin-bottom: 30px; opacity: 0.9;">Answer a few questions to find your perfect match using our advanced quantum compatibility algorithms.</p>
+            <button class="btn" onclick="startQuestionnaire()">Begin Journey to Love</button>
+        </div>
+
+        <!-- Question Screens -->
+        <div class="question-container hidden" id="questionContainer">
+            <div class="progress-indicator" id="progressIndicator"></div>
+            
+            <!-- Question 1 -->
+            <div class="question active" id="question1">
+                <div class="question-number">Question 1 of 9</div>
+                <div class="question-text">What's your full name?</div>
+                <input type="text" id="name" placeholder="Enter your full name" required>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="question" id="question2">
+                <div class="question-number">Question 2 of 9</div>
+                <div class="question-text">How old are you?</div>
+                <input type="number" id="age" placeholder="Your age" min="18" max="100" required>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="question" id="question3">
+                <div class="question-number">Question 3 of 9</div>
+                <div class="question-text">Where are you located?</div>
+                <input type="text" id="location" placeholder="City, State/Country" required>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="question" id="question4">
+                <div class="question-number">Question 4 of 9</div>
+                <div class="question-text">Tell us about your interests and hobbies</div>
+                <textarea id="interests" placeholder="What are you passionate about? What makes you unique?" rows="4" required></textarea>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="question" id="question5">
+                <div class="question-number">Question 5 of 9</div>
+                <div class="question-text">What are your relationship deal breakers?</div>
+                <textarea id="dealbreakers" placeholder="What are your absolute no-gos in a relationship?" rows="3" required></textarea>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="question" id="question6">
+                <div class="question-number">Question 6 of 9</div>
+                <div class="question-text">What's your personality type?</div>
+                <select id="personality" required>
+                    <option value="">Select your MBTI type</option>
+                    <option value="intj">INTJ - The Architect</option>
+                    <option value="intp">INTP - The Thinker</option>
+                    <option value="entj">ENTJ - The Commander</option>
+                    <option value="entp">ENTP - The Debater</option>
+                    <option value="infj">INFJ - The Advocate</option>
+                    <option value="infp">INFP - The Mediator</option>
+                    <option value="enfj">ENFJ - The Protagonist</option>
+                    <option value="enfp">ENFP - The Campaigner</option>
+                    <option value="istj">ISTJ - The Logistician</option>
+                    <option value="isfj">ISFJ - The Protector</option>
+                    <option value="estj">ESTJ - The Executive</option>
+                    <option value="esfj">ESFJ - The Consul</option>
+                    <option value="istp">ISTP - The Virtuoso</option>
+                    <option value="isfp">ISFP - The Adventurer</option>
+                    <option value="estp">ESTP - The Entrepreneur</option>
+                    <option value="esfp">ESFP - The Entertainer</option>
+                </select>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="question" id="question7">
+                <div class="question-number">Question 7 of 9</div>
+                <div class="question-text">What's your lifestyle preference?</div>
+                <select id="lifestyle" required>
+                    <option value="">Select your lifestyle</option>
+                    <option value="homebody">Homebody - I love cozy nights in</option>
+                    <option value="social">Social Butterfly - Always out and about</option>
+                    <option value="adventurous">Adventure Seeker - Let's explore the world</option>
+                    <option value="balanced">Balanced Mix - Best of both worlds</option>
+                    <option value="workaholic">Career Focused - Work comes first</option>
+                    <option value="minimalist">Minimalist - Simple living</option>
+                </select>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="question" id="question8">
+                <div class="question-number">Question 8 of 9</div>
+                <div class="question-text">What are your core values?</div>
+                <textarea id="values" placeholder="What principles guide your life? What matters most to you?" rows="3" required></textarea>
+            </div>
+
+            <!-- Question 9 -->
+            <div class="question" id="question9">
+                <div class="question-number">Question 9 of 9</div>
+                <div class="question-text">What are your life goals?</div>
+                <textarea id="goals" placeholder="Where do you see yourself in 5-10 years? What do you want to achieve?" rows="3" required></textarea>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn" id="prevBtn" onclick="previousQuestion()" disabled>Previous</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loadingText">Initializing quantum matchmaking algorithm...</div>
+            <div class="tech-text" id="techText">Calibrating neural networks...</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div class="result" id="result">
+            <div class="result-icon">🚪</div>
+            <div><strong>No matches found!</strong></div>
+            <div style="margin-top: 20px; font-size: 1.1em;">
+                After analyzing 47 million profiles across 12 dimensions of compatibility...
+            </div>
+            <div style="margin-top: 15px; font-size: 1.3em; color: #feca57;">
+                <strong>I guess you'll have to try going outside! 🌞</strong>
+            </div>
+            <button class="btn" onclick="location.reload()" style="margin-top: 30px;">Try Again (Why Not?)</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 9;
+
+        const loadingMessages = [
+            { main: "Initializing quantum matchmaking algorithm...", tech: "Calibrating neural networks..." },
+            { main: "Scanning global compatibility matrix...", tech: "Executing deep learning protocols..." },
+            { main: "Analyzing personality vectors...", tech: "Cross-referencing behavioral patterns..." },
+            { main: "Computing soulmate probability coefficients...", tech: "Optimizing Pareto frontier analysis..." },
+            { main: "Processing emotional intelligence metrics...", tech: "Running Monte Carlo simulations..." },
+            { main: "Evaluating lifestyle synchronization potential...", tech: "Implementing fuzzy logic matching..." },
+            { main: "Searching multidimensional compatibility space...", tech: "Applying genetic algorithms..." },
+            { main: "Calculating romantic entropy levels...", tech: "Deploying machine learning heuristics..." },
+            { main: "Finalizing compatibility assessment...", tech: "Convergence analysis in progress..." }
+        ];
+
+        function startQuestionnaire() {
+            document.getElementById('welcomeScreen').classList.add('hidden');
+            document.getElementById('questionContainer').classList.remove('hidden');
+            updateProgressIndicator();
+        }
+
+        function updateProgressIndicator() {
+            const indicator = document.getElementById('progressIndicator');
+            indicator.innerHTML = '';
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'progress-dot';
+                if (i <= currentQuestion) {
+                    dot.classList.add('active');
+                }
+                indicator.appendChild(dot);
+            }
+        }
+
+        function isCurrentQuestionValid() {
+            const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
+            const input = currentQuestionElement.querySelector('input, select, textarea');
+            return input && input.value.trim() !== '';
+        }
+
+        function nextQuestion() {
+            if (!isCurrentQuestionValid()) {
+                const currentQuestionElement = document.getElementById(`question${currentQuestion}`);
+                const input = currentQuestionElement.querySelector('input, select, textarea');
+                input.style.border = '2px solid #ff6b6b';
+                setTimeout(() => {
+                    input.style.border = 'none';
+                }, 2000);
+                return;
+            }
+
+            if (currentQuestion < totalQuestions) {
+                document.getElementById(`question${currentQuestion}`).classList.remove('active');
+                currentQuestion++;
+                document.getElementById(`question${currentQuestion}`).classList.add('active');
+                updateProgressIndicator();
+                updateButtons();
+            } else {
+                // Start matching process
+                startMatching();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 1) {
+                document.getElementById(`question${currentQuestion}`).classList.remove('active');
+                currentQuestion--;
+                document.getElementById(`question${currentQuestion}`).classList.add('active');
+                updateProgressIndicator();
+                updateButtons();
+            }
+        }
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            prevBtn.disabled = currentQuestion === 1;
+            nextBtn.textContent = currentQuestion === totalQuestions ? 'Find My Match!' : 'Next';
+        }
+
+        function startMatching() {
+            document.getElementById('questionContainer').classList.add('hidden');
+            document.getElementById('loadingContainer').style.display = 'block';
+            
+            let progress = 0;
+            
+            const updateInterval = setInterval(() => {
+                // Always randomly select a message
+                const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+                document.getElementById('loadingText').textContent = randomMessage.main;
+                document.getElementById('techText').textContent = randomMessage.tech;
+                
+                progress += Math.random() * 15 + 5;
+                if (progress > 100) progress = 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }, 3000);
+            
+            // Show result after 30 seconds
+            setTimeout(() => {
+                clearInterval(updateInterval);
+                document.getElementById('loadingContainer').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+            }, 30000);
+        }
+
+        // Initialize
+        updateButtons();
+    </script>
+</body>
+</html>
