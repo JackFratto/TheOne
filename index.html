@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +20,6 @@
             align-items: center;
             justify-content: center;
             color: white;
-            position: relative;
         }
 
         .container {
@@ -53,8 +53,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
         }
 
         .logo {
@@ -90,7 +97,9 @@
             line-height: 1.4;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 15px;
             border: none;
@@ -101,7 +110,8 @@
             margin-bottom: 20px;
         }
 
-        input::placeholder, textarea::placeholder {
+        input::placeholder,
+        textarea::placeholder {
             color: rgba(255, 255, 255, 0.7);
         }
 
@@ -168,8 +178,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .loading-text {
@@ -297,6 +312,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Welcome Screen -->
@@ -315,26 +331,30 @@
                             <stop offset="100%" style="stop-color:#667eea;stop-opacity:1" />
                         </linearGradient>
                     </defs>
-                    
+
                     <!-- Outer heart layers -->
-                    <path d="M50,85 C20,60 10,40 10,25 C10,15 18,8 28,8 C35,8 42,12 50,20 C58,12 65,8 72,8 C82,8 90,15 90,25 C90,40 80,60 50,85 Z" 
-                          fill="url(#heartGradient1)" opacity="0.3" transform="scale(1.2) translate(-10,-10)"/>
-                    
-                    <path d="M50,80 C22,57 12,38 12,25 C12,16 19,10 28,10 C35,10 42,14 50,22 C58,14 65,10 72,10 C81,10 88,16 88,25 C88,38 78,57 50,80 Z" 
-                          fill="url(#heartGradient2)" opacity="0.5" transform="scale(1.1) translate(-5,-5)"/>
-                    
+                    <path
+                        d="M50,85 C20,60 10,40 10,25 C10,15 18,8 28,8 C35,8 42,12 50,20 C58,12 65,8 72,8 C82,8 90,15 90,25 C90,40 80,60 50,85 Z"
+                        fill="url(#heartGradient1)" opacity="0.3" transform="scale(1.2) translate(-10,-10)" />
+
+                    <path
+                        d="M50,80 C22,57 12,38 12,25 C12,16 19,10 28,10 C35,10 42,14 50,22 C58,14 65,10 72,10 C81,10 88,16 88,25 C88,38 78,57 50,80 Z"
+                        fill="url(#heartGradient2)" opacity="0.5" transform="scale(1.1) translate(-5,-5)" />
+
                     <!-- Main heart -->
-                    <path d="M50,75 C25,55 15,37 15,25 C15,17 21,12 28,12 C35,12 42,16 50,24 C58,16 65,12 72,12 C79,12 85,17 85,25 C85,37 75,55 50,75 Z" 
-                          fill="url(#heartGradient1)"/>
-                    
+                    <path
+                        d="M50,75 C25,55 15,37 15,25 C15,17 21,12 28,12 C35,12 42,16 50,24 C58,16 65,12 72,12 C79,12 85,17 85,25 C85,37 75,55 50,75 Z"
+                        fill="url(#heartGradient1)" />
+
                     <!-- Inner heart highlight -->
-                    <path d="M50,65 C30,48 22,33 22,24 C22,19 26,16 30,16 C35,16 40,19 50,28 C60,19 65,16 70,16 C74,16 78,19 78,24 C78,33 70,48 50,65 Z" 
-                          fill="rgba(255,255,255,0.3)"/>
+                    <path
+                        d="M50,65 C30,48 22,33 22,24 C22,19 26,16 30,16 C35,16 40,19 50,28 C60,19 65,16 70,16 C74,16 78,19 78,24 C78,33 70,48 50,65 Z"
+                        fill="rgba(255,255,255,0.3)" />
                 </svg>
                 <h1 class="logo">The One</h1>
             </div>
             <p class="tagline">AI-Powered Soulmate Discovery Platform</p>
-            
+
             <div class="success-stats">
                 <div class="stat">
                     <div class="stat-number">2.3M+</div>
@@ -352,38 +372,45 @@
 
             <div class="testimonials">
                 <div class="testimonial">
-                    <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #ff6b6b, #feca57); border-radius: 50%; flex-shrink: 0;"></div>
+                    <img class="testimonial-avatar" src="alice.jpeg" alt="Alice" />
                     <div class="testimonial-content">
-                        <div class="testimonial-text">"I was skeptical at first, but The One's quantum compatibility algorithm found my soulmate on the first try! We're getting married next month. The science behind this is incredible!"</div>
+                        <div class="testimonial-text">"I was skeptical at first, but The One's quantum compatibility
+                            algorithm found my soulmate on the first try! We're getting married next month. The science
+                            behind this is incredible!"</div>
                         <div class="testimonial-author">— Alice M., Software Engineer</div>
                     </div>
                 </div>
 
                 <div class="testimonial">
-                    <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #764ba2, #667eea); border-radius: 50%; flex-shrink: 0;"></div>
+                    <img class="testimonial-avatar" src="bob.jpeg" alt="Bob" />
                     <div class="testimonial-content">
-                        <div class="testimonial-text">"After 3 years of terrible dates, The One analyzed my personality matrix and found someone with 97.3% compatibility. We moved in together after 2 months!"</div>
+                        <div class="testimonial-text">"After 3 years of terrible dates, The One analyzed my personality
+                            matrix and found someone with 97.3% compatibility. We moved in together after 2 months!"
+                        </div>
                         <div class="testimonial-author">— Bob T., Marketing Director</div>
                     </div>
                 </div>
 
                 <div class="testimonial">
-                    <div style="width: 50px; height: 50px; background: linear-gradient(45deg, #48dbfb, #ff9ff3); border-radius: 50%; flex-shrink: 0;"></div>
+                    <img class="testimonial-avatar" src="charlie.jpeg" alt="Charlie" />
                     <div class="testimonial-content">
-                        <div class="testimonial-text">"The Pareto frontier optimization is genius! It found my perfect match across 47 different compatibility dimensions. We share the same rare MBTI subtype!"</div>
+                        <div class="testimonial-text">"The Pareto frontier optimization is genius! It found my perfect
+                            match across 47 different compatibility dimensions. We share the same rare MBTI subtype!"
+                        </div>
                         <div class="testimonial-author">— Charlie L., Data Scientist</div>
                     </div>
                 </div>
             </div>
 
-            <p style="margin-bottom: 30px; opacity: 0.9;">Join millions who've found their perfect match using our advanced quantum compatibility algorithms.</p>
+            <p style="margin-bottom: 30px; opacity: 0.9;">Join millions who've found their perfect match using our
+                advanced quantum compatibility algorithms.</p>
             <button class="btn" onclick="startQuestionnaire()">Begin Journey to Love</button>
         </div>
 
         <!-- Question Screens -->
         <div class="question-container hidden" id="questionContainer">
             <div class="progress-indicator" id="progressIndicator"></div>
-            
+
             <!-- Question 1 -->
             <div class="question active" id="question1">
                 <div class="question-number">Question 1 of 9</div>
@@ -409,14 +436,16 @@
             <div class="question" id="question4">
                 <div class="question-number">Question 4 of 9</div>
                 <div class="question-text">Tell us about your interests and hobbies</div>
-                <textarea id="interests" placeholder="What are you passionate about? What makes you unique?" rows="4" required></textarea>
+                <textarea id="interests" placeholder="What are you passionate about? What makes you unique?" rows="4"
+                    required></textarea>
             </div>
 
             <!-- Question 5 -->
             <div class="question" id="question5">
                 <div class="question-number">Question 5 of 9</div>
                 <div class="question-text">What are your relationship deal breakers?</div>
-                <textarea id="dealbreakers" placeholder="What are your absolute no-gos in a relationship?" rows="3" required></textarea>
+                <textarea id="dealbreakers" placeholder="What are your absolute no-gos in a relationship?" rows="3"
+                    required></textarea>
             </div>
 
             <!-- Question 6 -->
@@ -463,14 +492,16 @@
             <div class="question" id="question8">
                 <div class="question-number">Question 8 of 9</div>
                 <div class="question-text">What are your core values?</div>
-                <textarea id="values" placeholder="What principles guide your life? What matters most to you?" rows="3" required></textarea>
+                <textarea id="values" placeholder="What principles guide your life? What matters most to you?" rows="3"
+                    required></textarea>
             </div>
 
             <!-- Question 9 -->
             <div class="question" id="question9">
                 <div class="question-number">Question 9 of 9</div>
                 <div class="question-text">What are your life goals?</div>
-                <textarea id="goals" placeholder="Where do you see yourself in 5-10 years? What do you want to achieve?" rows="3" required></textarea>
+                <textarea id="goals" placeholder="Where do you see yourself in 5-10 years? What do you want to achieve?"
+                    rows="3" required></textarea>
             </div>
 
             <div class="nav-buttons">
@@ -499,7 +530,6 @@
             <div style="margin-top: 15px; font-size: 1.3em; color: #feca57;">
                 <strong>I guess you'll have to try going outside! 🌞</strong>
             </div>
-            
             <button class="btn" onclick="location.reload()" style="margin-top: 30px;">Try Again (Why Not?)</button>
         </div>
     </div>
@@ -529,7 +559,7 @@
         function updateProgressIndicator() {
             const indicator = document.getElementById('progressIndicator');
             indicator.innerHTML = '';
-            
+
             for (let i = 1; i <= totalQuestions; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'progress-dot';
@@ -582,7 +612,7 @@
         function updateButtons() {
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
-            
+
             prevBtn.disabled = currentQuestion === 1;
             nextBtn.textContent = currentQuestion === totalQuestions ? 'Find My Match!' : 'Next';
         }
@@ -590,20 +620,20 @@
         function startMatching() {
             document.getElementById('questionContainer').classList.add('hidden');
             document.getElementById('loadingContainer').style.display = 'block';
-            
+
             let progress = 0;
-            
+
             const updateInterval = setInterval(() => {
                 // Always randomly select a message
                 const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
                 document.getElementById('loadingText').textContent = randomMessage.main;
                 document.getElementById('techText').textContent = randomMessage.tech;
-                
+
                 progress += Math.random() * 15 + 5;
                 if (progress > 100) progress = 100;
                 document.getElementById('progressFill').style.width = progress + '%';
             }, 3000);
-            
+
             // Show result after 30 seconds
             setTimeout(() => {
                 clearInterval(updateInterval);
@@ -616,4 +646,5 @@
         updateButtons();
     </script>
 </body>
+
 </html>
